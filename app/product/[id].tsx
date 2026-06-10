@@ -77,6 +77,16 @@ export default function ProductScreen() {
     >
       <Stack.Screen options={{ title: product.title ?? 'Product' }} />
 
+      <Pressable
+        onPress={() => (router.canGoBack() ? router.back() : router.push('/'))}
+        style={styles.backButton}
+        hitSlop={8}
+      >
+        <ThemedText type="defaultSemiBold" style={[styles.backText, { color: tint }]}>
+          ‹ Back
+        </ThemedText>
+      </Pressable>
+
       <ThemedView style={styles.section}>
         <ThemedText type="title">{product.title}</ThemedText>
       </ThemedView>
@@ -146,6 +156,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 24,
+  },
+  backButton: {
+    alignSelf: 'flex-start',
+  },
+  backText: {
+    fontSize: 16,
+    fontWeight: '600',
   },
   section: {
     gap: 8,

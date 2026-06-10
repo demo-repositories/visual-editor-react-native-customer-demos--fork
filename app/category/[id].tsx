@@ -153,6 +153,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
+    width: "100%",
+    maxWidth: 960,
+    alignSelf: "center",
     padding: 16,
     paddingBottom: 64,
     gap: 16,
