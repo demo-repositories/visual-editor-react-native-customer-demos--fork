@@ -1,47 +1,102 @@
-import { Image, StyleSheet } from 'react-native';
+import Loading from "@/components/Loading";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { Colors } from "@/constants/Colors";
+import { useLocale } from "@/contexts/LocaleContext";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { useQuery } from "@/hooks/useQueryStore";
+import { TOP_CATEGORIES_QUERY } from "@/sanity/queries";
+import { CategoryListItem } from "@/types/sanity";
+import { clean, createDataAttributeProp } from "@/utils/preview";
+import { useRouter } from "expo-router";
+import { Pressable, ScrollView, StyleSheet } from "react-native";
 
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { sharedStyles } from '@/utils/styles';
-import { Link } from 'expo-router';
+export default function StoreScreen() {
+  const { locale } = useLocale();
+  const router = useRouter();
+  const colorScheme = useColorScheme() ?? "light";
+  const tint = Colors[colorScheme].tint;
+  const { data } = useQuery<CategoryListItem[]>(TOP_CATEGORIES_QUERY, {
+    locale,
+  });
 
-export default function HomeScreen() {
+  if (!data) {
+    return <Loading />;
+  }
+
   return (
-      <ParallaxScrollView
-        headerImage={<Image source={require('@/assets/images/camera.jpg')} style={styles.headerImage} />}
-        headerBackgroundColor={{ light: '#FFF', dark: '#1D3D47' }}
-      >
-        <ThemedView style={styles.titleContainer}>
-          <ThemedText type="title">Welcome!</ThemedText>
-          <ThemedText type="subtitle">This is a demo of Sanity Visual Editing in React Native</ThemedText>
-          <ThemedText type="default">Click one of the links below (or use the tabs at the bottom of the screen) to visit pages which load lists of the appropriately typed Sanity documents. 
-            (See the README.md of this repo to ensure that you have the correct data in your Sanity project)
-          </ThemedText>
-          <ThemedText>
-            If you are on the React Native app itself on your mobile device, 
-            you will see the end user view. </ThemedText>
-
-          <ThemedText type="default">If you are in the Sanity studio in a web browser and have correctly configured the presentation plugin, in the Presentation view you will see blue hover overlays for 
-            each Sanity field, which can be clicked to jump right to the editing input for that field.</ThemedText>
-          <Link style={sharedStyles.link} href="/movies">Movies</Link>
-          <Link style={sharedStyles.link} href="/people">People</Link>
+    <ThemedView style={styles.screen}>
+      <ScrollView contentContainerStyle={styles.content}>
+        <ThemedView style={styles.header}>
+          <ThemedText type="title">Store</ThemedText>
+          <ThemedText type="default">Shop by category</ThemedText>
         </ThemedView>
-      </ParallaxScrollView>
 
+        {data.length === 0 ? (
+          <ThemedText type="default">
+            No categories found for this locale.
+          </ThemedText>
+        ) : (
+          <ThemedView style={styles.list}>
+            {data.map((category) => (
+              <Pressable
+                key={category._id}
+                {...createDataAttributeProp({
+                  id: clean(category._id),
+                  type: category._type,
+                  path: "title",
+                })}
+                style={[styles.row, { borderColor: tint + "33" }]}
+                onPress={() =>
+                  router.push({
+                    pathname: "/category/[id]",
+                    params: { id: clean(category._id) },
+                  })
+                }
+              >
+                <ThemedText type="defaultSemiBold" style={styles.rowTitle}>
+                  {category.title}
+                </ThemedText>
+                <ThemedText type="defaultSemiBold" style={{ color: tint }}>
+                  ›
+                </ThemedText>
+              </Pressable>
+            ))}
+          </ThemedView>
+        )}
+      </ScrollView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    marginTop: 'auto',
-    gap: 15
+  screen: {
+    flex: 1,
   },
-  headerImage: {
-    width: '100%',
-    height: 300,
-    resizeMode: 'cover',
+  content: {
+    width: "100%",
+    maxWidth: 960,
+    alignSelf: "center",
+    padding: 16,
+    paddingBottom: 64,
+    gap: 16,
+  },
+  header: {
+    gap: 4,
+  },
+  list: {
+    gap: 8,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  rowTitle: {
+    fontSize: 16,
   },
 });

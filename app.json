@@ -1,21 +1,22 @@
 {
   "expo": {
-    "name": "visual-editor-react-native",
+    "name": "Boot Barn",
     "slug": "visual-editor-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/squiggle.png",
-    "scheme": "visualeditorreactnative",
+    "scheme": "bootbarn",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.johnnypovolny.visualeditorreactnative",
+      "bundleIdentifier": "com.johnnypovolny.bootbarn",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
+      "package": "com.johnnypovolny.bootbarn",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/squiggle.png",
         "backgroundColor": "#ffffff"
@@ -27,7 +28,7 @@
       "output": "static",
       "favicon": "./assets/images/squiggle.png"
     },
-    
+
     "plugins": [
       "expo-router",
       [

@@ -24,6 +24,24 @@
       "distribution": "internal",
       "environment": "production",
       "autoIncrement": true
+    },
+    "bootbarn-preview": {
+      "extends": "preview",
+      "channel": "bootbarn-preview",
+      "env": {
+        "EXPO_PUBLIC_SANITY_PROJECT_ID": "962j2cll",
+        "EXPO_PUBLIC_SANITY_DATASET": "boot-barn-react-native",
+        "EXPO_PUBLIC_SANITY_STUDIO_URL": "http://localhost:3333"
+      }
+    },
+    "bootbarn-production": {
+      "extends": "production",
+      "channel": "bootbarn-production",
+      "env": {
+        "EXPO_PUBLIC_SANITY_PROJECT_ID": "962j2cll",
+        "EXPO_PUBLIC_SANITY_DATASET": "boot-barn-react-native",
+        "EXPO_PUBLIC_SANITY_STUDIO_URL": "http://localhost:3333"
+      }
     }
   },
   "submit": {

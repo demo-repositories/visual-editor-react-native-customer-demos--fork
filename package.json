@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "eas-build-pre-install": "corepack enable",
-    "start": "npx expo start --clear",
+    "dev": "npx expo start --clear",
     "build": "npx expo export -p web",
     "deploy:web:staging": "pnpm build && npx eas-cli@latest deploy",
     "deploy:web:prod": "pnpm build && npx eas-cli@latest deploy --prod",
