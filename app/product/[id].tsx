@@ -10,6 +10,7 @@ import { PRODUCT_BY_ID_QUERY } from '@/sanity/queries';
 import { Product, ProductMediaImage, ProductMediaSocial, ProductMediaVideo } from '@/types/sanity';
 import { getImageUrl } from '@/utils/image_url';
 import { clean, createDataAttributeProp, toSanityAttr } from '@/utils/preview';
+import { PortableText } from '@portabletext/react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 
@@ -106,6 +107,15 @@ export default function ProductScreen() {
               </ThemedText>
             </Pressable>
           ))}
+        </ThemedView>
+      ) : null}
+
+      {product.description && product.description.length > 0 ? (
+        <ThemedView
+          style={styles.section}
+          {...toSanityAttr(encodeDataAttribute(['description']))}
+        >
+          <PortableText value={product.description} />
         </ThemedView>
       ) : null}
 

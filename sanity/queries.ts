@@ -68,6 +68,7 @@ export const PRODUCT_BY_ID_QUERY = groq`*[_type == "product" && _id == $id][0]{
   _type,
   title,
   "slug": slug.current,
+  description,
   imagesAndVideos[]{
     _key,
     _type,

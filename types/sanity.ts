@@ -89,6 +89,7 @@ export type Product = {
   _type: string
   title: string
   slug?: string
+  description?: PortableTextBlock[]
   imagesAndVideos?: ProductMedia[]
   parents?: { _id: string; _type: string; title: string; slug?: string }[]
   socialPosts?: SocialPost[]
