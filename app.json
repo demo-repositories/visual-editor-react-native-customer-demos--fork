@@ -28,7 +28,6 @@
       "output": "static",
       "favicon": "./assets/images/squiggle.png"
     },
-
     "plugins": [
       "expo-router",
       [
@@ -49,6 +48,12 @@
       "eas": {
         "projectId": "0e097603-cf68-45a4-84ea-3bfa9c1f5e4f"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0e097603-cf68-45a4-84ea-3bfa9c1f5e4f"
     }
   }
 }
